@@ -1,0 +1,75 @@
+{% load static %}
+<div class="row flex-nowrap ">
+    <div class="bg-dark col-auto col-md-4 col-lg-3 min-vh-100 d-flex flex-column justify-content-between">
+        <div class="bg-dark">
+
+            <ul class="nav nav-pills flex-column mt-3 ">
+                <li class="nav-item">
+                    <a href="{% url 'home_dashboard' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-tachometer-alt"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'requisition_form' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-file-text"></i><span 
+                            class="fs-4 d-none ms-2 d-sm-inline">Requisition Form</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'requisition_data_list' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-clipboard-list"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Requisition Data</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'po_details' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-chart-simple"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">P.O Data</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'purchase_form' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-file-text"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">P.O Item</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'purchase_list' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-table"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">P.O Details</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'incoming_material_form' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-file-text"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Incoming Form</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'submitted_data_list' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-database"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Incoming Data</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'stock' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-database"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Stock Data</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'vendor_list' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-users"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Vendor Data</span>
+                    </a>
+                </li>
+                <li class="nav-item py-2 py-sm-0">
+                    <a href="{% url 'grade_list' %}" class="nav-link text-white" aria-current="page">
+                        <i class="fs-5 fas fa-font"></i><span
+                            class="fs-4 d-none ms-2 d-sm-inline">Product Grades</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>

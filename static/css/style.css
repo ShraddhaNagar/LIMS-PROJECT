@@ -1,0 +1,23 @@
+.head-1{
+    --bs-bg-opacity: .6;
+    border-radius: 6px;
+}
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.hr {
+    background-color: white;
+    padding: 1px;
+    color: white;
+
+}
+.login{
+    margin-bottom: 1em;
+    background-color: rgba(220, 220, 220, 0.4)!important;
+    border-radius: 10px;
+
+}
+.footer{
+    border-radius: 6px;
+}

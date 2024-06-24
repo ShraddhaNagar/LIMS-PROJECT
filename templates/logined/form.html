@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forAllForm.css' %}">
+    <title>Dashboard</title>
+    
+</head>
+
+<body>
+    {% include 'logined/navbar.html' %}
+    <div class="container-fluid">
+        {% include 'logined/sidebar.html' %}
+        <!-- Content -->
+        <div class="col">
+            <div class="container-fluid p-3 ">
+                <div class="container mt-4 pt-1 fcontainer">
+                    <h2>Incoming Material Form</h2>
+                    <form class="row g-3 pt-3 mt-2 " action="{% url 'incoming_material_form' %}" method="post">
+                        {% csrf_token %}
+                        <!-- Date of Indent -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="date_of_indent" class="form-label">Date of Indent:</label>
+                            <input type="date" class="form-control" id="date_of_indent" name="date_of_indent">
+                        </div>
+                        <!-- Material -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="material" class="form-label">Material:</label>
+                            <input type="text" class="form-control" id="material" name="material">
+                        </div>
+                        <!-- Makes -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="makes" class="form-label">Makes:</label>
+                            <input type="text" class="form-control" id="makes" name="makes">
+                        </div>
+                        <!-- Model No -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="model_no" class="form-label">Model No:</label>
+                            <input type="text" class="form-control" id="model_no" name="model_no">
+                        </div>
+                        <!-- PO No -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="po_no" class="form-label">P.O No:</label>
+                            <input type="text" class="form-control" id="po_no" name="po_no">
+                        </div>
+                        <!-- Date of Order -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="date_of_order" class="form-label">Date of Order:</label>
+                            <input type="date" class="form-control" id="date_of_order" name="date_of_order">
+                        </div>
+                        <!-- Description -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="description" class="form-label">Description:</label>
+                            <input type="text" class="form-control" id="description" name="description">
+                        </div>
+                        <!-- Grade -->
+                        <!-- <div class="col-md-4 mb-3 px-4">
+                            <label for="grade" class="form-label">Grade:</label>
+                            <select class="form-select" id="grade" name="grade">
+                                <option value="AR">AR</option>
+                                <option value="ACS">ACS</option>
+                                <option value="HPLC">HPLC</option>
+                                <option value="GC">GC</option>
+                                <option value="LR">LR</option>
+                            </select>
+                        </div> -->
+                        <!-- Assuming this code is within your HTML form -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="grade" class="form-label">Grade:</label>
+                            <select class="form-select" id="grade" name="grade">
+                                {% for grade in grades %}
+                                <option value="{{ grade.name }}">{{ grade.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Supplier Name/Address -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="supplier_nameaddress" class="form-label">Supplier Name/Address:</label>
+                            <select class="form-select" id="supplier_nameaddress" name="supplier_nameaddress">
+                                {% for vendor in vendors %}
+                                <option value="{{ vendor.name }}">{{ vendor.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+
+                        <!-- Incoming Material Inspection -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="incoming_material_inspection" class="form-label">Incoming Material
+                                Inspection:</label>
+                            <select class="form-select" id="incoming_material_inspection"
+                                name="incoming_material_inspection">
+                                <option value="Ok">Ok</option>
+                                <option value="Fine">Fine</option>
+                                <option value="Not Ok">Not Ok</option>
+                            </select>
+                        </div>
+                        <!-- Quantity -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="quantity" class="form-label">Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity">
+                        </div>
+                        <!-- Material Received Date -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="material_received_date" class="form-label">Material Received Date:</label>
+                            <input type="date" class="form-control" id="material_received_date"
+                                name="material_received_date">
+                        </div>
+                        <!-- HSN/SAC -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="hsn_sac" class="form-label">HSN/SAC:</label>
+                            <input type="text" class="form-control" id="hsn_sac" name="hsn_sac">
+                        </div>
+                        <!-- Invoice No -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="invoice_no" class="form-label">Invoice No:</label>
+                            <input type="text" class="form-control" id="invoice_no" name="invoice_no">
+                        </div>
+                        <!-- Received By -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="received_by" class="form-label">Received By:</label>
+                            <input type="text" class="form-control" id="received_by" name="received_by">
+                        </div>
+                        <!-- Remark -->
+                        <div class="col-md-12 mb-3 px-4">
+                            <label for="remark" class="form-label">Remark:</label>
+                            <textarea class="form-control" id="remark" name="remark" style="resize: none;"></textarea>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="col-md-6  mb-3 px-4 mx-auto">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                            <!-- <a href="#" class="btn btn-success">Update</a> -->
+                            <!-- <a href="#" class="btn btn-secondary">Search</a> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Get current date in yyyy-mm-dd format
+        var today = new Date().toISOString().split('T')[0];
+        // Set the max attribute of the date input field to today's date
+        document.getElementById('material_received_date').setAttribute('max', today);
+        document.getElementById('date_of_order').setAttribute('max', today);
+        document.getElementById('date_of_indent').setAttribute('max', today);
+        
+    </script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

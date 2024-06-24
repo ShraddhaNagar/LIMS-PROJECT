@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.bootstrap5.css">
+
+    <!-- print button and select -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.0/css/select.dataTables.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
+
+    <!-- DataTables Buttons -->
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js"></script>
+    <!-- JSZip -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- PDFMake -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <!-- DataTables Buttons HTML5 Export -->
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.min.js"></script>
+    <!-- DataTables Buttons Print -->
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js"></script>
+    <!-- DataTables Select -->
+    <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
+    <script src="https://cdn.datatables.net/select/2.0.0/js/select.dataTables.js"></script>
+    <!-- Include jsPDF library -->
+
+    <title>Dashboard</title>
+
+</head>
+
+<body>
+    {% include 'logined/navbar.html' %}
+
+    <div class="container-fluid">
+        {% include 'logined/sidebar.html' %}
+
+        <!-- Content -->
+        <div class="col overflow-x-auto ">
+            <div class="container-fluid p-3">
+
+                <div class="table-responsive{-sm|-md|-lg|-xl|-xxl}">
+                    <table id="example" class="caption-top table table-bordered table-striped table-sm table-hover"
+                        style="width:100%">
+                        <caption>
+                            <h3>Purchase Items List</h3>
+                        </caption>
+                        <thead class="table-light">
+                            <tr>
+                                <th>Brand</th>
+                                <th>Item Code</th>
+                                <th>Item</th>
+                                <th>Quotation No</th>
+                                <th>Grade</th>
+                                <th>Pack Size</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Amount</th>
+                                <th>COA / COC required</th>
+                                <th>COA / COC Certificate</th>
+                                <th>Discount %</th>
+                                <th>Status</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            {% for items in purchases %}
+                            <tr>
+                                <td>{{ items.make_brand }}</td>
+                                <td>{{ items.product_code }}</td>
+                                <td>{{ items.item }}</td>
+                                <td>{{ items.quotation_no }}</td>
+                                <td>{{ items.grade }}</td>
+                                <td>{{ items.pack_size }}</td>
+                                <td>{{ items.quantity }}</td>
+                                <td>{{ items.unit_price }}</td>
+                                <td>{{ items.total_amount }}</td>
+                                <td>{{ items.coa_coc_required }}</td>
+                                <td>
+                                    {% if items.pdf_file %}
+                                        <a href="{{ items.pdf_file.url }}" download>Download COA</a>
+                                    {% else %}
+                                        No PDF
+                                    {% endif %}
+                                </td>
+                                <td>{{ items.discount }}</td>
+                                <td>{{ items.status }}</td>
+                                <td>
+                                    <a href="{% url 'purchase_edit' product_code=items.product_code %}"
+                                        class="mx-auto btn btn-success">Update</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function generatePDFContent() {
+            var pdfContent = [];
+            var logo = 'data:image/png;base64,iVBORw0KGg...'; // Your logo image in base64 format
+            var title = 'FOOD TESTING LABORATORY';
+            var address = 'ACROPOLIS INSTITUTE OF PHARMACEUTICAL EDUCATION & RESEARCH Manglia Sq. Indore Bypass Road, Indore-453771.M.P.';
+            var name = 'Puchase Order Detail';
+            
+            pdfContent.push({
+                image: '{% static "img/alogo.jpeg" %}',
+                width: 100,
+                alignment: 'left'
+            });
+
+            pdfContent.push('\n');
+
+            pdfContent.push({
+                image: logo,
+                width: 100,
+                alignment: 'left'
+            });
+
+            pdfContent.push('\n');
+
+            pdfContent.push({
+                text: title,
+                style: 'header',
+                alignment: 'center'
+            });
+
+            pdfContent.push('\n');
+
+            pdfContent.push({
+                text: address,
+                style: 'address',
+                alignment: 'center'
+            });
+
+            pdfContent.push('\n');
+
+            pdfContent.push({
+                text: name,
+                style: 'name',
+                alignment: 'center'
+            });
+
+            pdfContent.push('\n');
+
+            return pdfContent;
+        }
+
+        new DataTable('#example', {
+            scrollX: true,
+            scrollY: 300,
+
+            layout: {
+                topStart: {
+                    buttons: [
+                        'copy',
+                        'csv',
+                        'excel',
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            pageSize: 'A4',
+                            title: function () {
+                                return generatePDFContent();
+                            },
+                            message: 'This is Message',
+                            messageBottom: 'This PDF is generated by ',
+
+                            filename: 'Purchase_Order_Detail',
+
+                            customize: function (doc) {
+                                doc.styles.tableHeader.alignment = 'justify';
+                                doc.defaultStyle.fontSize = 8;
+                                doc.styles.tableFooter.fontSize = 10;
+
+                                // Add styles to the PDF document
+                                doc.styles = {
+                                    header: {
+                                        fontSize: 24,
+                                        bold: true,
+                                        alignment: 'center'
+                                    },
+                                    tableHeader: {
+                                        color: 'black',
+                                        alignment: 'justify',
+                                        fillColor: '#f2f2f2',
+                                        border: [true, true, true, true] // Add border for table header
+                                    },
+                                    subheader: {
+                                        fontSize: 18,
+                                        bold: true,
+                                        margin: [0, 10, 0, 10] // Adjust margin
+                                    },
+                                    address: {
+                                        italics: true,
+                                        fontSize: 12,
+                                        alignment: 'center'
+                                    },
+                                    name: {
+                                        fontSize: 16,
+                                        bold: true,
+                                        alignment: 'center'
+                                    },
+                                    tableBody: {
+                                        border: [true, true, true, true] // Add border for all cells
+                                    }
+                                };
+                            },
+                            exportOptions: {
+                                modifier: {
+                                    selected: true
+                                },
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Print all (not just selected)',
+                            title: 'My Title\na new line', // Custom print title with a new line
+                            exportOptions: {
+                                modifier: {
+                                    selected: null,
+
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            select: true
+        });
+    </script>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

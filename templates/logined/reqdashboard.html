@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forAllForm.css' %}">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    {% include 'logined/navbar.html' %}
+
+    <div class="container-fluid">
+        {% include 'logined/sidebar.html' %}
+
+        <!-- Content -->
+        <div class="col">
+            <div class="container-fluid p-3">
+                <div class="container mt-4 pt-1 fcontainer">
+                    <h2>Requisition Form</h2>
+                    <form class="row g-3 pt-3 mt-2 " action="{% url 'requisition_list_update' product_code=item.product_code %}" method="post">
+                        {% csrf_token %}
+
+                        <!-- Item -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="item" class="form-label">Item:</label>
+                            <input type="text" class="form-control" id="item" name="item" value="{{ item.item }}">
+                        </div>
+
+                        <!-- product_code -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="product_code" class="form-label">Product Code / Catalogue No.:</label>
+                            <input type="text" class="form-control" id="product_code" name="product_code" value="{{ item.product_code }}">
+                        </div>
+
+                        <!-- make_brand -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="make_brand" class="form-label">Make / Brand:</label>
+                            <input type="text" class="form-control" id="make_brand" name="make_brand" value="{{ item.make_brand }}">
+                        </div>
+
+                        <!-- Grade -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="grade" class="form-label">Grade:</label>
+                            <select class="form-select" id="grade" name="grade">
+                                <option value="{{ item.grade }}">{{ item.grade }}</option>
+                                {% for grade in grades %}
+                                <option value="{{ grade.name }}">{{ grade.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Pack Size -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="pack_size" class="form-label">Pack Size:</label>
+                            <input type="text" class="form-control" id="pack_size" name="pack_size" value="{{ item.pack_size }}">
+                        </div>
+
+                        <!-- quantity -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="quantity" class="form-label">Qty:</label>
+                            <input type="text" class="form-control" id="quantity" name="quantity" value="{{ item.quantity }}">
+                        </div>
+
+                        <!--COA / COC required -->
+                        <div class="col-md-4 mb-3 px-4" style="padding-top: 28px;">
+                            <div class="border rounded p-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="coa_coc_required" name="coa_coc_required" {% if item.coa_coc_required %}checked{% endif %}>
+                                    <label class="form-check-label" for="coa_coc_required">COA / COC required</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Discount -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="discount" class="form-label">Discount:</label>
+                            <input type="text" class="form-control" id="discount" name="discount" value="{{ item.discount }}">
+                        </div>
+                        
+                        <!-- status -->
+                        <div class="col-md-4 mb-3 px-4">
+                            <label for="status" class="form-label">Status:</label>
+                            <!-- <input type="text" class="form-control" id="status" name="status" value="{{ item.status }}"> -->
+                            <select class="form-select" id="status" name="status">
+                                <option value="{{ item.status }}">{{ item.status }}</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Received">Received</option>
+                                <option value="Cancled">Cancled</option>
+                            </select>
+                        </div>
+                        
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

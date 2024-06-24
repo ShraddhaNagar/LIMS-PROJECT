@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forAllForm.css' %}">
+    <title>Dashboard</title>
+
+</head>
+
+<body>
+    {% include 'logined/navbar.html' %}
+    <div class="container-fluid">
+        {% include 'logined/sidebar.html' %}
+        <!-- Content -->
+        <div class="col">
+            <div class="container-fluid p-3 ">
+                <div class="container mt-4 pt-1 fcontainer">
+                    <h3>Admin Profile</h3>
+                    <form class="row g-3 pt-3 mt-2 " action="{% url 'setting' %}" method="post">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            <!--Username -->
+                            <div class="col-md-6 mb-3 px-4 ">
+                                <label for="name" class="form-label">User Name:</label>
+                                <input type="text" class="form-control" id="name" name="uname" value="{{uname}}" readonly>
+                            </div>
+                            <!-- Email -->
+                            <div class="col-md-6 mb-3 px-4">
+                                <label for="mail" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="mail" name="email" value="{{email}}" readonly>
+                            </div>
+                            <!-- Date of Join -->
+                            <div class="col-md-6 mb-3 px-4">
+                                <label for="date_of_join" class="form-label">Date of Join:</label>
+                                <input type="text" class="form-control" id="date_of_join" name="date_of_join" value="{{date_of_join}}" readonly>
+                            </div>
+
+                            <div class="col-md-6 mb-3 px-4">
+                                <label for="time_of_join" class="form-label">Time of Join:</label>
+                                <input type="text" class="form-control" id="time_of_join" name="time_of_join" value="{{time_of_join}}" readonly>
+                            </div>
+
+                            <div class="col-md-4 mb-3 px-4 mt-4">
+                                <!-- <button type="submit" class="btn btn-success ">Change</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

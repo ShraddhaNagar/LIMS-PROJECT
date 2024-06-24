@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>LIMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row py-1 bg-dark text-light head-1" id="header" style="--bs-bg-opacity: .9;">
+            <h4>Laboratory Information Management System</h4>
+            <h5>Indore</h5>
+            <hr class="hr">
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 py-3"><img class="img-thumbnail w-100" src="{% static './img/chemical bg.png' %}"
+                    alt=""></div>
+            <div class="col-md-4 mt-4 bg-light text-dark login">
+                <p class="text-wrap text-muted fs-6  text-center">Sign Up</p>
+                <form class="form-group was-validated" action="{% url 'signup' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-floating my-4 ">
+                        <input type="text" name="username" class="form-control form-control-sm border-white" id=""
+                            placeholder="Username" required>
+                        <label class="form-label">Username</label>
+                    </div>
+                    <div class="form-floating my-4 ">
+                        <input type="email" name="email" class="form-control form-control-sm border-white" id=""
+                            placeholder="Email" required>
+                        <label class="form-label text-sm-start">Email</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" name="pass" class="form-control form-control-sm border-white" id=""
+                            placeholder="Password" required>
+                        <label class="form-label">Password</label>
+                        <small class="form-text text-muted">Your Password Should Min 8 Char.</small>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="mt-3 me-2 btn btn-dark">Signup</button>
+                        <button type="reset" class="mt-3 me-4 btn btn-danger">Reset</button>
+                        <a href="{% url 'signin' %}" class="mt-3  btn btn-dark link-info" >Go for Login</a>
+                    </div>
+                </form>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <strong>Message: </strong>{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-2 bg-dark text-light footer">
+            <p class="text-center ">&copy; 2024 Acropolis Lab of Management & Research</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+/* this is made for form design like form color, font , radius, responsiveness and  other properties. */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.fcontainer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+@media screen and (max-width: 600px) {
+    .fcontainer {
+        max-height: 80vh;   /* Set maximum height, adjust as needed */
+        overflow-y: auto;
+    }
+}
